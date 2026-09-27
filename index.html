@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hey Sethu 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --rose:#f7c5d0;
+  --rose2:#f2a0b8;
+  --rose3:#e8819f;
+  --blush:#fdf0f3;
+  --deep:#8b3a5a;
+  --text:#4a2035;
+  --muted:#a06080;
+  --bg:#fff6f8;
+  --petal:#fde8ef;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── PETALS FLOATING ── */
+.petal{position:fixed;pointer-events:none;font-size:1.2rem;animation:fall linear infinite;z-index:0;opacity:0.6}
+@keyframes fall{0%{transform:translateY(-40px) rotate(0deg);opacity:0.8}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;min-height:100vh;position:relative;z-index:1}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;animation:pageIn 0.6s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── BOJACK SNIPPET ── */
+.bojack-strip{width:100%;max-width:640px;background:rgba(139,58,90,0.07);border-left:3px solid var(--rose3);border-radius:0 8px 8px 0;padding:0.75rem 1rem;margin-bottom:2.5rem;display:flex;align-items:flex-start;gap:0.75rem}
+.bj-horse{font-size:1.6rem;flex-shrink:0}
+.bj-quote{font-style:italic;font-size:0.82rem;color:var(--muted);line-height:1.6}
+.bj-attr{font-size:0.7rem;color:var(--rose3);margin-top:0.25rem;font-weight:500}
+
+/* ── PAGE 1 — PROPOSAL ── */
+#p1 .card{background:white;border-radius:24px;box-shadow:0 8px 40px rgba(232,129,159,0.18);padding:2.5rem 2rem;max-width:460px;width:100%;text-align:center}
+.sparkle{font-size:2.2rem;margin-bottom:1rem}
+.proposal-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);color:var(--deep);line-height:1.2;margin-bottom:0.5rem}
+.proposal-name{color:var(--rose3)}
+.proposal-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2rem;line-height:1.6}
+
+.btn-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;margin-top:1.5rem}
+#btn-yes{background:linear-gradient(135deg,var(--rose3),var(--deep));color:white;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:transform 0.3s,font-size 0.4s,padding 0.4s;font-size:1rem;padding:0.75rem 2.5rem;box-shadow:0 4px 20px rgba(232,129,159,0.4)}
+#btn-yes:hover{transform:scale(1.06)}
+#btn-no{background:transparent;color:var(--muted);border:1.5px solid var(--rose2);border-radius:50px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s;font-size:0.85rem;padding:0.5rem 1.5rem}
+#btn-no:hover{transform:translate(var(--nx,0px),var(--ny,0px))}
+.no-label{font-size:0.65rem;color:var(--rose2);margin-top:0.25rem;font-style:italic;min-height:1rem}
+
+/* ── PAGE 2 — DATE IDEAS ── */
+#p2{background:linear-gradient(160deg,#fff0f5 0%,#fce8f0 100%)}
+#p2 .section-head{text-align:center;margin-bottom:2rem}
+#p2 h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--deep);margin-bottom:0.4rem}
+#p2 .sub{font-size:0.9rem;color:var(--muted)}
+.ideas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0.85rem;max-width:780px;width:100%;margin-bottom:2rem}
+.idea-card{background:white;border:1.5px solid var(--rose);border-radius:16px;padding:1.1rem;cursor:pointer;transition:all 0.2s;text-align:center;position:relative}
+.idea-card:hover{border-color:var(--rose3);transform:translateY(-3px);box-shadow:0 6px 20px rgba(232,129,159,0.2)}
+.idea-card.selected{border-color:var(--rose3);background:linear-gradient(135deg,#fff0f5,#fce8f0);box-shadow:0 4px 18px rgba(232,129,159,0.3)}
+.idea-card.selected::after{content:'✓';position:absolute;top:8px;right:10px;font-size:0.75rem;color:var(--rose3);font-weight:700}
+.idea-emoji{font-size:1.6rem;margin-bottom:0.5rem}
+.idea-title{font-size:0.82rem;font-weight:500;color:var(--deep);margin-bottom:0.2rem}
+.idea-desc{font-size:0.7rem;color:var(--muted);line-height:1.4}
+#p2 .next-btn{background:linear-gradient(135deg,var(--rose3),var(--deep));color:white;border:none;border-radius:50px;padding:0.75rem 2.5rem;font-size:0.95rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(232,129,159,0.35)}
+#p2 .next-btn:hover{transform:translateY(-2px)}
+#p2 .next-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.selected-label{font-size:0.8rem;color:var(--rose3);margin-bottom:1rem;font-style:italic;min-height:1.2rem}
+
+/* ── PAGE 3 — DATE PICKER ── */
+#p3{background:var(--blush)}
+#p3 .card{background:white;border-radius:24px;box-shadow:0 8px 40px rgba(232,129,159,0.15);padding:2rem;max-width:520px;width:100%}
+#p3 h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--deep);margin-bottom:0.4rem;text-align:center}
+#p3 .sub{font-size:0.88rem;color:var(--muted);text-align:center;margin-bottom:1.75rem}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cal-month{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--deep);font-weight:700}
+.cal-nav{background:transparent;border:1.5px solid var(--rose);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:0.9rem;color:var(--deep);display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.cal-nav:hover{background:var(--rose);border-color:var(--rose2)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:1.25rem}
+.cal-day-head{text-align:center;font-size:0.65rem;color:var(--muted);padding:4px;font-weight:500}
+.cal-cell{text-align:center;padding:7px 4px;border-radius:8px;font-size:0.8rem;cursor:pointer;color:var(--text);transition:all 0.15s;border:1.5px solid transparent}
+.cal-cell:hover:not(.disabled):not(.empty){background:var(--petal);border-color:var(--rose2)}
+.cal-cell.selected-day{background:linear-gradient(135deg,var(--rose3),var(--deep));color:white;border-color:transparent}
+.cal-cell.disabled{color:var(--rose);cursor:not-allowed;opacity:0.4}
+.cal-cell.empty{cursor:default}
+.cal-cell.today{font-weight:700;color:var(--rose3)}
+
+/* Time picker */
+.time-section{margin-top:1.25rem}
+.time-label{font-size:0.8rem;color:var(--deep);font-weight:500;margin-bottom:0.6rem}
+.time-grid{display:flex;flex-wrap:wrap;gap:0.4rem}
+.time-chip{padding:5px 12px;border:1.5px solid var(--rose);border-radius:20px;font-size:0.75rem;cursor:pointer;color:var(--muted);transition:all 0.15s}
+.time-chip:hover{border-color:var(--rose3);color:var(--rose3)}
+.time-chip.selected-time{background:var(--rose);border-color:var(--rose3);color:var(--deep);font-weight:500}
+
+/* Note box */
+.note-section{margin-top:1.25rem}
+.note-label{font-size:0.8rem;color:var(--deep);font-weight:500;margin-bottom:0.5rem}
+.note-input{width:100%;border:1.5px solid var(--rose);border-radius:10px;padding:0.6rem 0.75rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text);resize:none;outline:none;background:#fff9fb;transition:border 0.2s}
+.note-input:focus{border-color:var(--rose3)}
+.note-input::placeholder{color:var(--rose2)}
+
+#p3 .next-btn{width:100%;margin-top:1.5rem;background:linear-gradient(135deg,var(--rose3),var(--deep));color:white;border:none;border-radius:50px;padding:0.8rem;font-size:0.95rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(232,129,159,0.35)}
+#p3 .next-btn:hover{transform:translateY(-2px)}
+#p3 .next-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+
+/* ── PAGE 4 — LOVE METER ── */
+#p4{background:linear-gradient(160deg,#fff0f5,#fce8f0)}
+#p4 .card{background:white;border-radius:24px;box-shadow:0 8px 40px rgba(232,129,159,0.18);padding:2rem;max-width:480px;width:100%;text-align:center}
+#p4 h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--deep);margin-bottom:0.4rem}
+#p4 .sub{font-size:0.88rem;color:var(--muted);margin-bottom:1.75rem}
+.meter-wrap{background:var(--petal);border-radius:50px;height:18px;overflow:visible;margin-bottom:0.5rem;position:relative}
+.meter-fill{height:100%;background:linear-gradient(90deg,var(--rose2),var(--rose3),var(--deep),#ff80ab,#e040fb);border-radius:50px;width:0%;position:relative;transition:none}
+.meter-fill::after{content:'💨';position:absolute;right:-18px;top:-4px;font-size:1.1rem;display:none}
+.meter-value{font-size:1.6rem;font-weight:700;color:var(--rose3);font-family:'Playfair Display',serif;margin-bottom:0.1rem}
+.meter-status{font-size:0.78rem;color:var(--rose3);font-weight:500;min-height:1.1rem;margin-bottom:0.25rem;font-style:italic}
+.meter-label{font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem}
+.reasons-list{text-align:left;margin-bottom:1.5rem}
+.reason-item{display:flex;align-items:flex-start;gap:0.5rem;padding:0.5rem 0;border-bottom:1px solid var(--petal);font-size:0.83rem;color:var(--text)}
+.reason-item:last-child{border:none}
+.reason-dot{color:var(--rose3);flex-shrink:0;margin-top:1px}
+#p4 .next-btn{background:linear-gradient(135deg,var(--rose3),var(--deep));color:white;border:none;border-radius:50px;padding:0.75rem 2.5rem;font-size:0.95rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(232,129,159,0.35)}
+#p4 .next-btn:hover{transform:translateY(-2px)}
+
+/* ── PAGE 5 — CONFIRMATION ── */
+#p5{background:linear-gradient(160deg,#fff0f5,#fce8f0)}
+#p5 .card{background:white;border-radius:24px;box-shadow:0 8px 40px rgba(232,129,159,0.2);padding:2.5rem 2rem;max-width:500px;width:100%;text-align:center}
+.confirm-big{font-size:3.5rem;margin-bottom:0.75rem;animation:bounce 0.8s ease both 0.3s}
+@keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+#p5 h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--deep);margin-bottom:0.5rem}
+#p5 .sub{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.75rem}
+.confirm-details{background:var(--petal);border-radius:14px;padding:1.25rem;margin-bottom:1.75rem;text-align:left}
+.confirm-row{display:flex;gap:0.6rem;align-items:flex-start;margin-bottom:0.6rem;font-size:0.85rem}
+.confirm-row:last-child{margin:0}
+.confirm-icon{font-size:1rem;flex-shrink:0}
+.confirm-val{color:var(--text);font-weight:500}
+.confirm-key{color:var(--muted);font-size:0.78rem;margin-top:1px}
+.hearts-anim{font-size:1.8rem;letter-spacing:0.3rem;animation:heartBeat 1.5s ease infinite}
+.save-status{font-size:0.8rem;color:var(--muted);margin-top:1rem;min-height:1.2rem}
+@keyframes heartBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+/* Shared util */
+.page-label{font-size:0.65rem;color:var(--rose2);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.6rem;font-family:'DM Sans',sans-serif}
+.progress-dots{display:flex;gap:6px;justify-content:center;margin-bottom:1.75rem}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--rose);transition:background 0.3s}
+.pdot.active{background:var(--rose3)}
+
+@media(max-width:480px){
+  .ideas-grid{grid-template-columns:repeat(2,1fr)}
+  #p1 .card,.#p3 .card{padding:1.75rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING PETALS -->
+<div id="petals-container"></div>
+
+<!-- ══════════════════════════════════
+     PAGE 1 — THE QUESTION
+════════════════════════════════════ -->
+<div class="page active" id="p1">
+  <div class="bojack-strip" style="max-width:460px">
+    <span class="bj-horse">🐴</span>
+    <div>
+      <div class="bj-quote">"I need you to know that I know that I'm not happy. But I also know that I'm not gonna be happy until I stop waiting to be happy and just… decide to be."</div>
+      <div class="bj-attr">— BoJack Horseman</div>
+    </div>
+  </div>
+
+  <div class="card" id="p1-card">
+    <div class="sparkle">🌸</div>
+    <h1 class="proposal-title">Hey <span class="proposal-name">Sethu</span>,<br>will you go on a<br>date with me?</h1>
+    <p class="proposal-sub">I promise it'll be fun — and I've put way too much thought into this question for you to say no 🌷</p>
+
+    <div class="btn-wrap">
+      <button id="btn-yes" onclick="goToPage('p2')">Yes, let's go! 🌸</button>
+      <div class="no-label" id="no-label"></div>
+      <button id="btn-no" onclick="handleNo()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 2 — DATE IDEAS
+════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="bojack-strip">
+    <span class="bj-horse">🐴</span>
+    <div>
+      <div class="bj-quote">"The only thing that matters is whether you're happy or not — and I think you deserve to be really, really happy."</div>
+      <div class="bj-attr">— Mr. Peanutbutter 🐶</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="progress-dots">
+      <div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <div class="page-label">Step 1 of 4</div>
+    <h2>Pick a date idea 🌺</h2>
+    <p class="sub">Choose up to 2 that sound fun to you!</p>
+  </div>
+
+  <div class="ideas-grid" id="ideas-grid">
+    <div class="idea-card" data-id="0" onclick="toggleIdea(this)">
+      <div class="idea-emoji">☕</div>
+      <div class="idea-title">Cozy Café Date</div>
+      <div class="idea-desc">Coffee, pastries & good conversation in a quiet corner</div>
+    </div>
+    <div class="idea-card" data-id="1" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎬</div>
+      <div class="idea-title">Movie Night</div>
+      <div class="idea-desc">Pick a film, snacks mandatory, popcorn fights optional</div>
+    </div>
+    <div class="idea-card" data-id="2" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🍹</div>
+      <div class="idea-title">Bar & Drinks</div>
+      <div class="idea-desc">Good cocktails, good music & even better conversation</div>
+    </div>
+    <div class="idea-card" data-id="3" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎨</div>
+      <div class="idea-title">Art & Paint Class</div>
+      <div class="idea-desc">We paint side-by-side, whoever's is worse buys dessert</div>
+    </div>
+    <div class="idea-card" data-id="4" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🍜</div>
+      <div class="idea-title">Fancy Dinner</div>
+      <div class="idea-desc">A proper restaurant, dress up a little, feel fancy</div>
+    </div>
+    <div class="idea-card" data-id="5" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎡</div>
+      <div class="idea-title">Amusement Park</div>
+      <div class="idea-desc">Rides, junk food & trying to win each other stuffed toys</div>
+    </div>
+    <div class="idea-card" data-id="6" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎤</div>
+      <div class="idea-title">Live Concert</div>
+      <div class="idea-desc">Pick an artist, lose ourselves in the music together</div>
+    </div>
+    <div class="idea-card" data-id="7" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎮</div>
+      <div class="idea-title">Arcade Night</div>
+      <div class="idea-desc">Retro games, crane machines & bragging rights</div>
+    </div>
+    <div class="idea-card" data-id="8" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🍦</div>
+      <div class="idea-title">Ice Cream Crawl</div>
+      <div class="idea-desc">Hit 3+ ice cream spots and argue about which is best</div>
+    </div>
+    <div class="idea-card" data-id="9" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🎭</div>
+      <div class="idea-title">Comedy Show</div>
+      <div class="idea-desc">Stand-up live — if we laugh at the same things, it's fate</div>
+    </div>
+    <div class="idea-card" data-id="10" onclick="toggleIdea(this)">
+      <div class="idea-emoji">🪩</div>
+      <div class="idea-title">Clubbing Night</div>
+      <div class="idea-desc">Dance floor, good DJ, and zero excuses to not have fun</div>
+    </div>
+  </div>
+
+  <div class="selected-label" id="selected-label">Choose up to 2 options above ✨</div>
+  <button class="next-btn" id="p2-next" onclick="goToPage('p3')" disabled>Next — Pick a Date 🗓</button>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 3 — DATE & TIME PICKER
+════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="card">
+    <div class="progress-dots">
+      <div class="pdot active"></div><div class="pdot active"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <div class="page-label">Step 2 of 4</div>
+    <h2>When works for you? 🗓</h2>
+    <p class="sub">Pick a day and a time — I'll clear my schedule.</p>
+
+    <!-- Calendar -->
+    <div class="cal-header">
+      <button class="cal-nav" id="cal-prev" onclick="changeMonth(-1)">‹</button>
+      <span class="cal-month" id="cal-month-label"></span>
+      <button class="cal-nav" id="cal-next" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <!-- Time -->
+    <div class="time-section">
+      <div class="time-label">🕐 What time?</div>
+      <div class="time-grid" id="time-grid"></div>
+    </div>
+
+    <!-- Note -->
+    <div class="note-section">
+      <div class="note-label">💌 Add a little note (optional)</div>
+      <textarea class="note-input" id="note-input" rows="2" maxlength="1000" placeholder="Any requests? 'I only eat dessert first' is valid…"></textarea>
+    </div>
+
+    <button class="next-btn" id="p3-next" onclick="goToPage('p4')" disabled>Next — Check our vibe 💕</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 4 — LOVE METER / FUN FACTS
+════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="bojack-strip">
+    <span class="bj-horse">🐴</span>
+    <div>
+      <div class="bj-quote">"When you look at someone through rose-coloured glasses, all the red flags just look like flags."</div>
+      <div class="bj-attr">— Wanda Pierce, BoJack Horseman</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="progress-dots">
+      <div class="pdot active"></div><div class="pdot active"></div><div class="pdot active"></div><div class="pdot"></div>
+    </div>
+    <div class="page-label">Step 3 of 4</div>
+    <h2>Date Compatibility Check ✨</h2>
+    <p class="sub" id="p4-sub">Booting up the most accurate algorithm known to humankind…</p>
+
+    <div class="meter-wrap">
+      <div class="meter-fill" id="meter-fill"><span id="meter-rocket" style="position:absolute;right:-22px;top:-5px;font-size:1.2rem;display:none">🚀</span></div>
+    </div>
+    <div class="meter-value" id="meter-value">0%</div>
+    <div class="meter-status" id="meter-status"></div>
+    <div class="meter-label">Compatibility Score (peer-reviewed, no notes)</div>
+
+    <div class="reasons-list" id="reasons-list"></div>
+
+    <button class="next-btn" id="p4-next" onclick="goToPage('p5')" style="display:none">It's official — seal the deal 🌺</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE 5 — CONFIRMATION
+════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="card">
+    <div class="confirm-big">🌸</div>
+    <h2>It's a date, Sethu!</h2>
+    <p class="sub">This is officially the best decision you've made today.<br>Here's a summary of what's coming up — I'm already excited.</p>
+
+    <div class="confirm-details" id="confirm-details"></div>
+
+    <div class="bojack-strip" style="text-align:left;margin-bottom:1.5rem">
+      <span class="bj-horse">🐴</span>
+      <div>
+        <div class="bj-quote">"I don't know if I believe in happy endings. But I do believe in happy moments. And I want to give you one."</div>
+        <div class="bj-attr">— BoJack (okay, maybe a paraphrase 🌷)</div>
+      </div>
+    </div>
+
+    <div class="hearts-anim">🌸 💕 🌸</div>
+    <p class="save-status" id="save-status" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<script>
+// ── PETALS ──
+const petalEmojis = ['🌸','🌺','🌷','🍀','💮'];
+const container = document.getElementById('petals-container');
+for(let i=0;i<18;i++){
+  const p = document.createElement('div');
+  p.className='petal';
+  p.textContent = petalEmojis[i%petalEmojis.length];
+  p.style.left = Math.random()*100+'vw';
+  p.style.fontSize = (0.8+Math.random()*0.8)+'rem';
+  p.style.animationDuration = (6+Math.random()*8)+'s';
+  p.style.animationDelay = (Math.random()*8)+'s';
+  p.style.opacity = 0.4+Math.random()*0.4;
+  container.appendChild(p);
+}
+
+// ── PAGE NAVIGATION ──
+function goToPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='p4') startMeter();
+  if(id==='p5') buildConfirmation();
+}
+
+// ── NO BUTTON LOGIC ──
+let noCount = 0;
+const noTexts = [
+  "Are you sure though? 🥺",
+  "Think again!",
+  "This button is getting smaller for a reason…",
+  "Come onnn 🌸",
+  "One more click and it disappears 👀",
+  "Last warning! 😂",
+  "Okay okay it's basically gone",
+  "It's a ghost now 👻"
+];
+function handleNo(){
+  noCount++;
+  const yesBtn = document.getElementById('btn-yes');
+  const noBtn = document.getElementById('btn-no');
+  const label = document.getElementById('no-label');
+  const yesSize = Math.min(1 + noCount*0.18, 2.5);
+  const yesPad = Math.min(0.75 + noCount*0.12, 1.5);
+  yesBtn.style.fontSize = yesSize+'rem';
+  yesBtn.style.padding = yesPad+'rem '+(yesPad*3)+'rem';
+  const noSize = Math.max(0.85 - noCount*0.1, 0.25);
+  noBtn.style.fontSize = noSize+'rem';
+  noBtn.style.padding = Math.max(0.5-noCount*0.05,0.15)+'rem '+Math.max(1.5-noCount*0.2,0.3)+'rem';
+  noBtn.style.opacity = Math.max(1 - noCount*0.13, 0.1);
+  // random jump
+  const nx = (Math.random()-0.5)*120;
+  const ny = (Math.random()-0.5)*60;
+  noBtn.style.setProperty('--nx', nx+'px');
+  noBtn.style.setProperty('--ny', ny+'px');
+  noBtn.style.transform = `translate(${nx}px,${ny}px)`;
+  label.textContent = noTexts[Math.min(noCount-1, noTexts.length-1)];
+}
+
+// ── DATE IDEAS ──
+let selectedIdeas = [];
+function toggleIdea(el){
+  const id = el.dataset.id;
+  if(el.classList.contains('selected')){
+    el.classList.remove('selected');
+    selectedIdeas = selectedIdeas.filter(x=>x!==id);
+  } else {
+    if(selectedIdeas.length>=2) return;
+    el.classList.add('selected');
+    selectedIdeas.push(id);
+  }
+  const nextBtn = document.getElementById('p2-next');
+  const label = document.getElementById('selected-label');
+  if(selectedIdeas.length>0){
+    nextBtn.disabled = false;
+    const names = [...document.querySelectorAll('.idea-card.selected')].map(c=>c.querySelector('.idea-title').textContent);
+    label.textContent = '✓ Selected: '+names.join(' & ');
+  } else {
+    nextBtn.disabled = true;
+    label.textContent = 'Choose up to 2 options above ✨';
+  }
+}
+
+// ── CALENDAR ──
+let calYear, calMonth, selectedDate = null, selectedTime = null;
+const times = ['10:00 AM','11:00 AM','12:00 PM','2:00 PM','4:00 PM','6:00 PM','7:00 PM','8:00 PM'];
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function initCalendar(){
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  renderCalendar();
+  renderTimes();
+}
+function changeMonth(d){
+  calMonth += d;
+  if(calMonth<0){calMonth=11;calYear--;}
+  if(calMonth>11){calMonth=0;calYear++;}
+  renderCalendar();
+}
+function renderCalendar(){
+  document.getElementById('cal-month-label').textContent = monthNames[calMonth]+' '+calYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML='';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
+    const h=document.createElement('div');
+    h.className='cal-day-head';h.textContent=d;grid.appendChild(h);
+  });
+  const first = new Date(calYear,calMonth,1).getDay();
+  const days = new Date(calYear,calMonth+1,0).getDate();
+  const today = new Date();
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-cell empty';grid.appendChild(e);}
+  for(let d=1;d<=days;d++){
+    const cell=document.createElement('div');
+    cell.className='cal-cell';
+    cell.textContent=d;
+    const cellDate=new Date(calYear,calMonth,d);
+    const isToday=cellDate.toDateString()===today.toDateString();
+    const isPast=cellDate<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    if(isToday) cell.classList.add('today');
+    if(isPast){cell.classList.add('disabled');}
+    else {
+      const key=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      if(selectedDate===key) cell.classList.add('selected-day');
+      cell.onclick=()=>selectDay(d,key,cell);
+    }
+    grid.appendChild(cell);
+  }
+}
+function selectDay(d,key,cell){
+  selectedDate=key;
+  document.querySelectorAll('.cal-cell.selected-day').forEach(c=>c.classList.remove('selected-day'));
+  cell.classList.add('selected-day');
+  checkP3();
+}
+function renderTimes(){
+  const tg=document.getElementById('time-grid');
+  tg.innerHTML='';
+  times.forEach(t=>{
+    const chip=document.createElement('div');
+    chip.className='time-chip';
+    chip.textContent=t;
+    if(selectedTime===t) chip.classList.add('selected-time');
+    chip.onclick=()=>{
+      selectedTime=t;
+      document.querySelectorAll('.time-chip').forEach(c=>c.classList.remove('selected-time'));
+      chip.classList.add('selected-time');
+      checkP3();
+    };
+    tg.appendChild(chip);
+  });
+}
+function checkP3(){
+  document.getElementById('p3-next').disabled = !(selectedDate && selectedTime);
+}
+initCalendar();
+
+// ── LOVE METER ──
+const meterReasons = [
+  {dot:'🌸', text:'You said yes — scientists confirm this raises compatibility by ∞%'},
+  {dot:'🐶', text:'Mr. Peanutbutter approved. His endorsement is legally binding.'},
+  {dot:'🎯', text:'Both of you have excellent taste. Verified by a horse.'},
+  {dot:'🚨', text:'WARNING: Readings exceeding normal human limits. Evacuate the chart.'},
+  {dot:'📡', text:'NASA has been notified. They want to study this phenomenon.'},
+  {dot:'💅', text:'The algorithm said "just get married already" and walked out.'},
+];
+const statusMsgs = [
+  [0,   'Initialising romance sensors…'],
+  [20,  'Oooh this is looking promising 👀'],
+  [50,  'Okay wait this is actually high 😳'],
+  [75,  'The bar is straining… hold on—'],
+  [95,  '⚠️ OVERFLOW DETECTED'],
+  [101, '📊 Chart has left the building'],
+  [130, '🚀 Compatibility off the charts!!'],
+  [160, '🌌 Scientists baffled. Unprecedented.'],
+  [200, '❌ ERROR: No unit exists for this'],
+  [250, '🆘 The meter is screaming. We all are.'],
+];
+let meterStarted = false;
+function startMeter(){
+  if(meterStarted) return;
+  meterStarted = true;
+  const fill   = document.getElementById('meter-fill');
+  const val    = document.getElementById('meter-value');
+  const status = document.getElementById('meter-status');
+  const sub    = document.getElementById('p4-sub');
+  const list   = document.getElementById('reasons-list');
+  const rocket = document.getElementById('meter-rocket');
+  const nextBtn= document.getElementById('p4-next');
+  let current  = 0;
+  let reasonIdx= 0;
+  let speed    = 12;
+  sub.textContent = 'Booting up the most accurate algorithm known to humankind…';
+
+  const interval = setInterval(()=>{
+    current++;
+    // update status message
+    for(let i=statusMsgs.length-1;i>=0;i--){
+      if(current>=statusMsgs[i][0]){ status.textContent=statusMsgs[i][1]; break; }
+    }
+    // display value
+    if(current<=100){
+      val.textContent = current+'%';
+      fill.style.width = current+'%';
+      fill.style.transition = 'width 0.05s linear';
+    } else {
+      val.textContent = current+'% 📈';
+      // bar bursts past 100%, overflow:visible lets it escape
+      fill.style.width = current+'%';
+      fill.style.transition = 'width 0.02s linear';
+      if(current===101){ rocket.style.display='inline'; }
+    }
+    // speed up past 100
+    if(current===100) speed = 8;
+    if(current===150) speed = 5;
+
+    // drip in reasons
+    if(current>0 && current%35===0 && reasonIdx<meterReasons.length){
+      const r = meterReasons[reasonIdx++];
+      const item = document.createElement('div');
+      item.className='reason-item';
+      item.style.animation='fadeUp 0.4s ease both';
+      item.innerHTML=`<span class="reason-dot">${r.dot}</span><span>${r.text}</span>`;
+      list.appendChild(item);
+    }
+
+    if(current>=270){
+      clearInterval(interval);
+      sub.textContent = '✅ Analysis complete. Result: absolutely unhinged levels of potential.';
+      nextBtn.style.display='block';
+      nextBtn.style.animation='fadeUp 0.5s ease both';
+    }
+  }, speed);
+}
+
+// ── DATABASE CONFIG ──
+const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+// ── DB SAVE ──
+async function saveResponse(payload){
+  const status = document.getElementById('save-status');
+  if(SUPABASE_URL.includes('YOUR_PROJECT_ID') || SUPABASE_ANON_KEY === 'YOUR_SUPABASE_ANON_KEY'){
+    status.textContent = 'Database not connected yet. Your response has not been saved.';
+    return;
+  }
+
+  try{
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/date_responses`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify(payload),
+    });
+    if(!response.ok) throw new Error(`Database returned ${response.status}`);
+    status.textContent = 'Response saved. I can’t wait!';
+  } catch(e){
+    console.warn('Database save failed',e);
+    status.textContent = 'Your response could not be saved. Please let me know directly.';
+  }
+}
+
+// ── CONFIRMATION ──
+function buildConfirmation(){
+  const ideas = [...document.querySelectorAll('.idea-card.selected')].map(c=>c.querySelector('.idea-title').textContent);
+  let dateStr = 'TBD';
+  if(selectedDate){
+    const [y,m,d]=selectedDate.split('-');
+    dateStr = monthNames[parseInt(m)-1]+' '+parseInt(d)+', '+y;
+  }
+  const note = document.getElementById('note-input').value.trim();
+  const rows = [
+    {icon:'🌸',key:'Date idea',val:ideas.join(' & ') || 'Surprise me'},
+    {icon:'📅',key:'When',val:dateStr},
+    {icon:'🕐',key:'Time',val:selectedTime||'TBD'},
+    {icon:'📍',key:'Location',val:'TBD — details to follow!'},
+  ];
+  if(note) rows.push({icon:'💌',key:'Your note',val:note});
+  const html = rows.map(r=>`
+    <div class="confirm-row">
+      <span class="confirm-icon">${r.icon}</span>
+      <div><div class="confirm-val">${r.val}</div><div class="confirm-key">${r.key}</div></div>
+    </div>`).join('');
+  document.getElementById('confirm-details').innerHTML=html;
+
+  // Save to database
+  const payload = {
+    date_ideas: ideas,
+    selected_date: selectedDate||null,
+    selected_time: selectedTime||null,
+    note: note||null,
+    no_taps: noCount,
+  };
+  saveResponse(payload);
+}
+</script>
+</body>
+</html>
