@@ -9,7 +9,7 @@ The page is public, and anyone who visits it can submit a response. Keep that in
 1. Create a Supabase project.
 2. Open the project's SQL Editor and run [`supabase.sql`](supabase.sql).
 3. In Supabase project settings, copy the anon/publishable key. The Project URL is already configured in this site. These values are public by design; never put a `service_role` key in the site.
-4. In [`index.html`](index.html), replace `YOUR_SUPABASE_ANON_KEY` with the anon/publishable key.
+4. In [`index.html`](index.html), set `SUPABASE_PUBLISHABLE_KEY` to your project's publishable key. It is public by design and is sent in the `apikey` header.
 5. Open **Table Editor** in Supabase and inspect the `date_responses` table to see submissions. Row-level security blocks public reads; only your signed-in Supabase dashboard can view the rows.
 
 The database permits anonymous inserts only. Do not add a public `SELECT` policy or put an admin/service key in the HTML.
